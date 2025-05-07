@@ -1,176 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>STAAR review </title>
-  <link id="favicon" rel="icon" href="https://ssl.gstatic.com/sheets/images/favicon_v1.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Student Portal</title>
   <style>
-    :root{--bg:#000;--fg:#0f0;--accent:#111;font-family:'Courier New',monospace;}
-    *{margin:0;padding:0;box-sizing:border-box;}
-    html,body{width:100%;height:100%;background:var(--bg);color:var(--fg);}
-    #lockscreen,#portal,#adminPanel{position:absolute;top:0;left:0;width:100%;height:100%;}
-    #lockscreen{display:flex;flex-direction:column;justify-content:center;align-items:center;}
-    #lockscreen h1{font-size:24px;margin-bottom:20px;}
-    #lockscreen input{padding:10px;width:300px;max-width:80%;background:var(--accent);border:1px solid var(--fg);color:var(--fg);font-size:16px;text-align:center;}
-    #statusMsg{margin-top:10px;height:20px;font-size:14px;}
-    header{background:var(--fg);color:var(--bg);padding:10px;text-align:center;font-weight:bold;font-size:20px;}
-    nav{background:var(--accent);display:flex;gap:10px;justify-content:center;padding:8px;}
-    nav button{background:var(--fg);color:var(--bg);border:none;padding:6px 12px;cursor:pointer;border-radius:4px;}
-    main{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;padding:20px;}
-    .card{background:var(--accent);border:1px solid var(--fg);border-radius:6px;overflow:hidden;cursor:pointer;transition:.2s;}
-    .card:hover{transform:scale(1.05);}
-    .card img{width:100%;height:140px;object-fit:cover;}
-    .card h2{text-align:center;font-size:16px;padding:8px;}
-    #gameBox{display:none;flex-direction:column;align-items:center;justify-content:center;position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:100;}
-    #gameFrame{width:90%;height:85%;border:2px solid var(--fg);border-radius:8px;}
-    #closeBtn{margin-top:10px;background:var(--fg);color:var(--bg);border:none;padding:8px 16px;font-weight:bold;cursor:pointer;}
-    #closeBtn:hover{background:lime;}
-    #afkBlur{position:fixed;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(12px);display:none;z-index:99;}
-    #adminPanel{background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:200;}
-    #adminPanel h1{font-size:28px;margin-bottom:20px;}
-    #adminPanel p{font-size:16px;margin-bottom:10px;}
-    #adminPanel button{margin:5px;background:#0f0;color:#000;padding:10px 20px;border:none;border-radius:5px;font-weight:bold;}
-    @media(max-width:600px){main{grid-template-columns:1fr;}}
+    body {
+      margin: 0;
+      background: #000;
+      color: #0f0;
+      font-family: sans-serif;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      padding: 10px;
+    }
+    button {
+      margin: 3px;
+      padding: 7px 12px;
+      background: #222;
+      color: #0f0;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .g {
+      display: none;
+    }
+    .v iframe {
+      width: 100vw;
+      height: 90vh;
+      border: none;
+    }
+    #auth {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #auth input {
+      padding: 10px;
+      font-size: 18px;
+    }
+    .light body {
+      background: #fff;
+      color: #000;
+    }
+    .light button {
+      background: #ccc;
+      color: #000;
+    }
   </style>
 </head>
 <body>
 
-<div id="lockscreen">
-  <h1>Enter Password:</h1>
-  <input id="passwordInput" type="password" placeholder="Type password...">
-  <p id="statusMsg"></p>
+<div id="auth">
+  <input id="p" type="password" placeholder="Enter Password">
+  <button onclick="U()">Unlock</button>
+  <div id="m" style="color:red;margin-top:10px"></div>
 </div>
 
-<div id="adminPanel">
-  <h1>Admin Control</h1>
-  <p>Welcome, Commander.</p>
-  <button onclick="launchAdminProxy()">Launch Backup Proxy</button>
-  <button onclick="home()">Return to Portal</button>
-</div>
-
-<div id="portal" style="display:none;">
-  <header>Matrix Arcade Portal</header>
-  <nav>
-    <button onclick="home()">Home</button>
-    <button onclick="cloakTab('Google Docs','https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico')">Docs</button>
-    <button onclick="cloakTab('Google Classroom','https://ssl.gstatic.com/classroom/favicon.png')">Classroom</button>
-    <button onclick="toggleFull()">Fullscreen</button>
-    <button onclick="panic()">Panic</button>
-  </nav>
-  <main id="gallery">
-    <div class="card" onclick="launch('https://ubg77.github.io/1v1-lol/')">
-      <img src="https://i.imgur.com/kM0M4oR.png"><h2>1v1.LOL</h2>
-    </div>
-    <div class="card" onclick="launch('https://ubg77.github.io/drift-hunters/')">
-      <img src="https://i.imgur.com/nBz0CFH.jpeg"><h2>Drift Hunters</h2>
-    </div>
-    <div class="card" onclick="launch('https://ubg77.github.io/ovo/')">
-      <img src="https://i.imgur.com/Pi6Ph5c.jpeg"><h2>OvO</h2>
-    </div>
-    <div class="card" onclick="launch('https://ubg77.github.io/geometry-dash/')">
-      <img src="https://i.imgur.com/C2uIbya.jpeg"><h2>Geometry Dash</h2>
-    </div>
-  </main>
-  <div id="gameBox">
-    <iframe id="gameFrame" sandbox="allow-forms allow-scripts allow-same-origin allow-popups" allowfullscreen></iframe>
-    <button id="closeBtn" onclick="exit()">Close Game</button>
+<header>
+  <div>
+    <button onclick="G('Bad Ice Cream')">Bad Ice Cream</button>
+    <button onclick="G('1v1.space')">1v1.space</button>
+    <button onclick="G('10 Minutes Till Dawn')">10 Minutes Till Dawn</button>
+    <button onclick="G('100 Player Pong')">100 Player Pong</button>
+    <button onclick="G('2048')">2048</button>
+    <button onclick="G('2048 Multitask')">2048 Multitask</button>
+    <button onclick="G('9007199254740992')">9007199254740992</button>
+    <button onclick="G('Achievement Unlocked')">Achievement Unlocked</button>
+    <button onclick="G('A Dark Room')">A Dark Room</button>
+    <button onclick="G('Ages of Conflict')">Ages of Conflict</button>
+    <button onclick="G('Alien Hominid')">Alien Hominid</button>
+    <button onclick="G('Amidst the Clouds')">Amidst the Clouds</button>
+    <button onclick="G('Avalanche')">Avalanche</button>
+    <button onclick="G('Backrooms')">Backrooms</button>
   </div>
-  <div id="afkBlur"></div>
-</div>
+  <div>
+    <button onclick="panic()">Panic</button>
+    <button onclick="T()">Theme</button>
+  </div>
+</header>
+
+<div id="Bad Ice Cream" class="g"><iframe src="games/Bad Ice Cream/index.html" loading="lazy"></iframe></div>
+<div id="1v1.space" class="g"><iframe src="games/1v1.space/index.html" loading="lazy"></iframe></div>
+<div id="10 Minutes Till Dawn" class="g"><iframe src="games/10 Minutes Till Dawn/index.html" loading="lazy"></iframe></div>
+<div id="100 Player Pong" class="g"><iframe src="games/100 Player Pong/index.html" loading="lazy"></iframe></div>
+<div id="2048" class="g"><iframe src="games/2048/index.html" loading="lazy"></iframe></div>
+<div id="2048 Multitask" class="g"><iframe src="games/2048 Multitask/index.html" loading="lazy"></iframe></div>
+<div id="9007199254740992" class="g"><iframe src="games/9007199254740992/index.html" loading="lazy"></iframe></div>
+<div id="Achievement Unlocked" class="g"><iframe src="games/Achievement Unlocked/index.html" loading="lazy"></iframe></div>
+<div id="A Dark Room" class="g"><iframe src="games/A Dark Room/index.html" loading="lazy"></iframe></div>
+<div id="Ages of Conflict" class="g"><iframe src="games/Ages of Conflict/index.html" loading="lazy"></iframe></div>
+<div id="Alien Hominid" class="g"><iframe src="games/Alien Hominid/index.html" loading="lazy"></iframe></div>
+<div id="Amidst the Clouds" class="g"><iframe src="games/Amidst the Clouds/index.html" loading="lazy"></iframe></div>
+<div id="Avalanche" class="g"><iframe src="games/Avalanche/index.html" loading="lazy"></iframe></div>
+<div id="Backrooms" class="g"><iframe src="games/Backrooms/index.html" loading="lazy"></iframe></div>
 
 <script>
-const frame=document.getElementById("gameFrame"),gallery=document.getElementById("gallery");
-function launch(url){
-  gallery.style.display="none";
-  document.getElementById("gameBox").style.display="flex";
-  frame.src=url;
-  frame.style.display="block";
-  localStorage.setItem('lastGame',url);
-}
-function exit(){
-  frame.src="about:blank";
-  frame.style.display="none";
-  document.getElementById("gameBox").style.display="none";
-  gallery.style.display="grid";
-}
-function home(){
-  document.getElementById("portal").style.display="block";
-  document.getElementById("adminPanel").style.display="none";
-  exit();
-}
-function panic(){
-  document.title="Google Docs";
-  document.getElementById("favicon").href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico";
-  home();
-}
-function cloakTab(title,icon){
-  document.title=title;
-  document.getElementById("favicon").href=icon;
-}
-function toggleFull(){
-  if(!document.fullscreenElement){document.documentElement.requestFullscreen();}
-  else{document.exitFullscreen();}
-}
-let timer;
-function resetTimer(){
-  clearTimeout(timer);
-  document.getElementById("afkBlur").style.display="none";
-  timer=setTimeout(()=>{document.getElementById("afkBlur").style.display="block";},30000);
-}
-["click","mousemove","keydown","touchstart"].forEach(e=>document.addEventListener(e,resetTimer));
-resetTimer();
-document.addEventListener("visibilitychange",()=>{if(document.hidden)panic();});
-setInterval(()=>{
-  const badWords=["goguardian","classwize","linewize","teacher","focus"];
-  const title=document.title.toLowerCase();
-  if(badWords.some(w=>title.includes(w)))panic();
-},2000);
-
-// Password unlock with feedback
-document.getElementById('passwordInput').addEventListener('keydown',function(e){
-  if(e.key==="Enter"){
-    const input=this.value.toLowerCase().replace(/\s+/g,'');
-    const status=document.getElementById("statusMsg");
-    if(input==="imadethis"){
-      status.style.color="#0f0";
-      status.textContent="Access granted.";
-      setTimeout(()=>{
-        document.getElementById('lockscreen').style.display="none";
-        document.getElementById('portal').style.display="block";
-      },500);
-    } else {
-      status.style.color="red";
-      status.textContent="Access denied.";
-    }
+  const P = 'bypass123';
+  function U() {
+    let i = document.getElementById('p').value;
+    i === P
+      ? document.getElementById('auth').style.display = 'none'
+      : document.getElementById('m').innerText = 'Wrong';
   }
-});
-
-// Ctrl+Alt+G Proxy Launcher
-document.addEventListener("keydown",function(e){
-  if(e.ctrlKey&&e.altKey&&e.key.toLowerCase()==="g"){
-    const proxies=["https://mathstudy.online/","https://algebrahelper.me/","https://notespace.xyz/"];
-    const randomProxy=proxies[Math.floor(Math.random()*proxies.length)];
-    window.open(randomProxy,"_blank");
+  function G(n) {
+    document.querySelectorAll('.g').forEach(e => e.classList.remove('v'));
+    let x = document.getElementById(n);
+    x && x.classList.add('v');
   }
-});
-
-// Ctrl+Alt+Shift+A Admin Panel
-document.addEventListener("keydown",function(e){
-  if(e.ctrlKey&&e.altKey&&e.shiftKey&&e.key==="A"){
-    document.getElementById('portal').style.display="none";
-    document.getElementById('adminPanel').style.display="flex";
+  function panic() {
+    document.title = 'Google Docs';
+    location.href = 'https://docs.google.com';
   }
-});
-
-function launchAdminProxy(){
-  const backups=["https://homeworkify.net/","https://helpmath.me/","https://freesciencetools.com/"];
-  const backup=backups[Math.floor(Math.random()*backups.length)];
-  window.open(backup,"_blank");
-}
-
-const last=localStorage.getItem('lastGame');
-if(last){ setTimeout(()=>launch(last),500); }
+  function T() {
+    document.body.classList.toggle('light');
+  }
 </script>
+
 </body>
 </html>
