@@ -5,62 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Student Portal</title>
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: #0f0;
-      font-family: sans-serif;
-    }
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      background: #111;
-      padding: 10px;
-    }
-    button {
-      margin: 3px;
-      padding: 7px 12px;
-      background: #222;
-      color: #0f0;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .g {
-      display: none;
-    }
-    .v iframe {
-      width: 100vw;
-      height: 90vh;
-      border: none;
-    }
+    body { margin: 0; background: #000; color: #0f0; font-family: sans-serif; }
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #111; padding: 10px; }
+    button { margin: 3px; padding: 7px 12px; background: #222; color: #0f0; border: none; cursor: pointer; border-radius: 4px; }
+    .g { display: none; }
+    .v iframe { width: 100vw; height: 90vh; border: none; }
     #auth {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: #000; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; z-index: 9999;
     }
-    #auth input {
-      padding: 10px;
-      font-size: 18px;
-    }
-    .light body {
-      background: #fff;
-      color: #000;
-    }
-    .light button {
-      background: #ccc;
-      color: #000;
-    }
+    #auth input { padding: 10px; font-size: 18px; }
+    .light body { background: #fff; color: #000; }
+    .light button { background: #ccc; color: #000; }
   </style>
 </head>
 <body>
@@ -73,20 +30,21 @@
 
 <header>
   <div>
-    <button onclick="G('Bad Ice Cream')">Bad Ice Cream</button>
-    <button onclick="G('1v1.space')">1v1.space</button>
-    <button onclick="G('10 Minutes Till Dawn')">10 Minutes Till Dawn</button>
-    <button onclick="G('100 Player Pong')">100 Player Pong</button>
+    <button onclick="G('bad-ice-cream')">Bad Ice Cream</button>
+    <button onclick="G('1')">1</button>
+    <button onclick="G('1v1space')">1v1.space</button>
+    <button onclick="G('10-minutes-till-dawn')">10 Minutes Till Dawn</button>
+    <button onclick="G('100-player-pong')">100 Player Pong</button>
     <button onclick="G('2048')">2048</button>
-    <button onclick="G('2048 Multitask')">2048 Multitask</button>
+    <button onclick="G('2048-multitask')">2048 Multitask</button>
     <button onclick="G('9007199254740992')">9007199254740992</button>
-    <button onclick="G('Achievement Unlocked')">Achievement Unlocked</button>
-    <button onclick="G('A Dark Room')">A Dark Room</button>
-    <button onclick="G('Ages of Conflict')">Ages of Conflict</button>
-    <button onclick="G('Alien Hominid')">Alien Hominid</button>
-    <button onclick="G('Amidst the Clouds')">Amidst the Clouds</button>
-    <button onclick="G('Avalanche')">Avalanche</button>
-    <button onclick="G('Backrooms')">Backrooms</button>
+    <button onclick="G('achievementunlocked')">Achievement Unlocked</button>
+    <button onclick="G('adarkroom')">A Dark Room</button>
+    <button onclick="G('ages-of-conflict')">Ages of Conflict</button>
+    <button onclick="G('alienhominid')">Alien Hominid</button>
+    <button onclick="G('amidst-the-clouds')">Amidst the Clouds</button>
+    <button onclick="G('avalanche')">Avalanche</button>
+    <button onclick="G('backrooms')">Backrooms</button>
   </div>
   <div>
     <button onclick="panic()">Panic</button>
@@ -94,20 +52,21 @@
   </div>
 </header>
 
-<div id="Bad Ice Cream" class="g"><iframe src="games/Bad Ice Cream/index.html" loading="lazy"></iframe></div>
-<div id="1v1.space" class="g"><iframe src="games/1v1.space/index.html" loading="lazy"></iframe></div>
-<div id="10 Minutes Till Dawn" class="g"><iframe src="games/10 Minutes Till Dawn/index.html" loading="lazy"></iframe></div>
-<div id="100 Player Pong" class="g"><iframe src="games/100 Player Pong/index.html" loading="lazy"></iframe></div>
+<div id="bad-ice-cream" class="g"><iframe src="games/bad-ice-cream/index.html" loading="lazy"></iframe></div>
+<div id="1" class="g"><iframe src="games/1/index.html" loading="lazy"></iframe></div>
+<div id="1v1space" class="g"><iframe src="games/1v1space/index.html" loading="lazy"></iframe></div>
+<div id="10-minutes-till-dawn" class="g"><iframe src="games/10-minutes-till-dawn/index.html" loading="lazy"></iframe></div>
+<div id="100-player-pong" class="g"><iframe src="games/100-player-pong/index.html" loading="lazy"></iframe></div>
 <div id="2048" class="g"><iframe src="games/2048/index.html" loading="lazy"></iframe></div>
-<div id="2048 Multitask" class="g"><iframe src="games/2048 Multitask/index.html" loading="lazy"></iframe></div>
+<div id="2048-multitask" class="g"><iframe src="games/2048-multitask/index.html" loading="lazy"></iframe></div>
 <div id="9007199254740992" class="g"><iframe src="games/9007199254740992/index.html" loading="lazy"></iframe></div>
-<div id="Achievement Unlocked" class="g"><iframe src="games/Achievement Unlocked/index.html" loading="lazy"></iframe></div>
-<div id="A Dark Room" class="g"><iframe src="games/A Dark Room/index.html" loading="lazy"></iframe></div>
-<div id="Ages of Conflict" class="g"><iframe src="games/Ages of Conflict/index.html" loading="lazy"></iframe></div>
-<div id="Alien Hominid" class="g"><iframe src="games/Alien Hominid/index.html" loading="lazy"></iframe></div>
-<div id="Amidst the Clouds" class="g"><iframe src="games/Amidst the Clouds/index.html" loading="lazy"></iframe></div>
-<div id="Avalanche" class="g"><iframe src="games/Avalanche/index.html" loading="lazy"></iframe></div>
-<div id="Backrooms" class="g"><iframe src="games/Backrooms/index.html" loading="lazy"></iframe></div>
+<div id="achievementunlocked" class="g"><iframe src="games/achievementunlocked/index.html" loading="lazy"></iframe></div>
+<div id="adarkroom" class="g"><iframe src="games/adarkroom/index.html" loading="lazy"></iframe></div>
+<div id="ages-of-conflict" class="g"><iframe src="games/ages-of-conflict/index.html" loading="lazy"></iframe></div>
+<div id="alienhominid" class="g"><iframe src="games/alienhominid/index.html" loading="lazy"></iframe></div>
+<div id="amidst-the-clouds" class="g"><iframe src="games/amidst-the-clouds/index.html" loading="lazy"></iframe></div>
+<div id="avalanche" class="g"><iframe src="games/avalanche/index.html" loading="lazy"></iframe></div>
+<div id="backrooms" class="g"><iframe src="games/backrooms/index.html" loading="lazy"></iframe></div>
 
 <script>
   const P = 'bypass123';
